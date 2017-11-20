@@ -14,17 +14,18 @@ class PersonalInfo(models.Model):
     birth_day = models.DateField()
     gender = models.CharField(max_length=6, choices=GENDER_CHOICE)
     nationality = models.CharField(max_length=25)
-    phone_no = models.CharField(max_length=14, blank=True)
+    contact_no = models.CharField(max_length=14, null=True, blank=True)
     email = models.EmailField()
-    website = models.URLField(blank=True)
-    address = models.CharField(max_length=100, blank=True)
+    website = models.URLField(null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100)
-    language_skills = models.CharField(max_length=200,
-                                       blank=True, 
+    language = models.CharField(max_length=200,
+                                       null=True, 
                                        help_text="Sparate languages by comma"
                                       )
 
-    other_skills = models.CharField(max_length=200,
+    skills = models.CharField(max_length=200,
+                                    null=True,
                                     blank=True, 
                                     help_text="Sparate Skills by comma"
                                    )
@@ -39,27 +40,32 @@ class PersonalInfo(models.Model):
     width_field = models.IntegerField(default=600)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
+
+    @property
+    def full_name(self):
+        return '%s %s' % (self.first_name, self.last_name)
+
 
 
 class WorkExperience(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name="work")
     company_name = models.CharField(max_length=50)
     job_title = models.CharField(max_length=20)
     joining_year = models.DateField()
     job_description = models.TextField()
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
       
 
 class Education(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, related_name="education")
     institute_name = models.CharField(max_length=50)
     subject = models.CharField(max_length=40)
     year = models.DateField()
     description = models.TextField()
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
  

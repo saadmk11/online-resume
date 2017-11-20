@@ -1,0 +1,53 @@
+<h1>CV</h1>
+
+{{personal_info.full_name}}
+<br>
+{{personal_info.birth_day}}
+<br>
+{{personal_info.gender}}
+<br>
+{{personal_info.nationality}}
+<br>
+{{personal_info.contact_no}}
+<br>
+{{personal_info.email}}
+<br>
+{{personal_info.website}}
+<br>
+{{personal_info.address}}
+<br>
+{{personal_info.country}}
+<br>
+{{personal_info.language}}
+<br>
+{{personal_info.skills}}
+<br>
+{{personal_info.bio}}
+<br>
+{{personal_info.picture}}
+<br>
+<br>
+{% for obj in work_experience %}
+
+{{obj.company_name}}
+<br>
+{{obj.job_title}}
+<br>
+{{obj.joining_year}}
+<br>
+{{obj.job_description}}
+<br><br>
+{% endfor %}
+<br>
+<br><br>
+{% for obj in education %}
+
+{{obj.institute_name}}
+<br>
+{{obj.subject}}
+<br>
+{{obj.year}}
+<br>
+{{obj.description}}
+
+{% endfor %}
