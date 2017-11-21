@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
+from .forms import PersonalInfoForm
 from.models import PersonalInfo, WorkExperience, Education
 
 
@@ -10,7 +12,7 @@ def cv_detail_view(request, username):
     try:
         personal_info = PersonalInfo.objects.get(user=user)
     except PersonalInfo.DoesNotExist:
-        raise Http404("CV Does Not Exist.")
+        raise Http404("CV Does Not Exist.") # do something later
 
     work_experience = WorkExperience.objects.filter(user=user)
     education = Education.objects.filter(user=user)
@@ -23,4 +25,45 @@ def cv_detail_view(request, username):
 
     return render(request, "cv/detail.html", context)
 
-    
+@login_required
+def create_personal_info(request):
+    try:
+        info = PersonalInfo.objects.get(user=request.user)
+        raise Http404
+    except PersonalInfo.DoesNotExist:
+        form = PersonalInfoForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            personal_info = form.save(commit=False)
+            personal_info.user = request.user
+            personal_info.save()
+
+        context = {
+            "form": form,
+        }
+
+        return render(request, "cv/create.html", context)
+
+
+@login_required
+def update_personal_info(request, pk):
+    instance = get_object_or_404(PersonalInfo, pk=pk)
+
+    if not request.user == instance.user:
+        raise Http404
+    else:    
+        form = PersonalInfoForm(request.POST or None, request.FILES or None, instance=instance)
+
+        if form.is_valid():
+            personal_info = form.save(commit=False)
+            personal_info.user = request.user
+            personal_info.save()
+
+        context = {
+            "form": form,
+        }
+
+        return render(request, "cv/create.html", context)
+
+
+

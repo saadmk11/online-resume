@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class PersonalInfo(models.Model):
@@ -49,22 +50,35 @@ class PersonalInfo(models.Model):
 
 
 class WorkExperience(models.Model):
-    user = models.ForeignKey(User, related_name="work")
+    user = models.ForeignKey(User, related_name="works")
     company_name = models.CharField(max_length=50)
     job_title = models.CharField(max_length=20)
     joining_year = models.DateField()
     job_description = models.TextField()
 
+    def get_delete_url(self):
+        pass
+
+    def get_update_url(self):
+        pass
+
     def __str__(self):
         return str(self.user.username)
+
       
 
 class Education(models.Model):
-    user = models.ForeignKey(User, related_name="education")
+    user = models.ForeignKey(User, related_name="educations")
     institute_name = models.CharField(max_length=50)
     subject = models.CharField(max_length=40)
     year = models.DateField()
     description = models.TextField()
+
+    def get_delete_url(self):
+        pass
+
+    def get_update_url(self):
+        pass
 
     def __str__(self):
         return str(self.user.username)
