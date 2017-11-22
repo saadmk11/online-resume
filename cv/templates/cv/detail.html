@@ -1,5 +1,5 @@
 <h1>CV</h1>
-
+<h1>personal info</h1>
 {{personal_info.full_name}}
 <br>
 {{personal_info.birth_day}}
@@ -27,6 +27,8 @@
 {{personal_info.picture}}
 <br>
 <br>
+
+<h1>work experience</h1>
 {% for obj in work_experience %}
 
 {{obj.company_name}}
@@ -39,7 +41,9 @@
 <br><br>
 {% endfor %}
 <br>
-<br><br>
+
+
+<h1>education</h1>
 {% for obj in education %}
 
 {{obj.institute_name}}
@@ -49,5 +53,5 @@
 {{obj.year}}
 <br>
 {{obj.description}}
-
+<br><br>
 {% endfor %}

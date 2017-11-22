@@ -43,10 +43,12 @@ class PersonalInfo(models.Model):
     def __str__(self):
         return str(self.user.username)
 
+    def get_update_url(self):
+        return reverse("update_personal_info", kwargs={"pk": self.pk})
+
     @property
     def full_name(self):
         return '%s %s' % (self.first_name, self.last_name)
-
 
 
 class WorkExperience(models.Model):
@@ -57,15 +59,14 @@ class WorkExperience(models.Model):
     job_description = models.TextField()
 
     def get_delete_url(self):
-        pass
+        return reverse("delete_work_experience", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        pass
+        return reverse("update_work_experience", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.user.username)
 
-      
 
 class Education(models.Model):
     user = models.ForeignKey(User, related_name="educations")
@@ -75,10 +76,10 @@ class Education(models.Model):
     description = models.TextField()
 
     def get_delete_url(self):
-        pass
+        return reverse("delete_education", kwargs={"pk": self.pk})
 
     def get_update_url(self):
-        pass
+        return reverse("update_education", kwargs={"pk": self.pk})
 
     def __str__(self):
         return str(self.user.username)
