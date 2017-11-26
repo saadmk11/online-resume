@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
+from accounts.models import User
 from .forms import PersonalInfoForm, WorkExperienceForm, EducationForm
-from.models import PersonalInfo, WorkExperience, Education
+from .models import PersonalInfo, WorkExperience, Education
 
 
 def cv_detail_view(request, username):

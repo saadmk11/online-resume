@@ -56,6 +56,8 @@ ROOT_URLCONF = 'online_resume.urls'
 
 LOGIN_URL = '/login/'
 
+AUTH_USER_MODEL = 'accounts.User'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
