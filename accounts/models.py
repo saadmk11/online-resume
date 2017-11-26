@@ -4,7 +4,7 @@ from django.db import models
 
 from .managers import UserManager
 
-USERNAME_REGEX = '^[a-z0-9.-_]*$'
+USERNAME_REGEX = '^[a-z0-9._-]*$'
 
 
 class User(AbstractUser):

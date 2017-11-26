@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^create/education$', create_education, name='create_education'),
     url(r'^update/education/(?P<pk>\d+)/$', update_education, name='update_education'),  
     url(r'^delete/education/(?P<pk>\d+)/$', delete_education, name='delete_education'), 
-    url(r'^(?P<username>[\w.-_]+)/$', cv_detail_view, name='cv_detail'),    
+    url(r'^(?P<username>[\w._-]+)/$', cv_detail_view, name='cv_detail'),    
 ]
