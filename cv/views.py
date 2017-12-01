@@ -33,6 +33,7 @@ def cv_detail_view(request, username):
 @login_required
 def create_personal_info(request):
     try:
+        # if personal_info exists user cannot create another one.
         info = PersonalInfo.objects.get(user=request.user)
         raise Http404
     except PersonalInfo.DoesNotExist:

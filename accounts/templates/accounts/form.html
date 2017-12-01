@@ -1,0 +1,13 @@
+<h1>{{ title }}</h1>
+<hr>
+<form method="POST" action="">
+	{% csrf_token %}
+	{{ form.as_p }}
+    <br>
+	<input class="" type="submit" value='{{ title }}'>&nbsp; &nbsp;
+    {% if request.path == "/login/" %}
+    Don't Have an Account <a href="{% url 'register' %}">Register Here.</a>
+    {% else %}
+    Have an Account <a href="{% url 'login' %}">Login Here.</a>
+    {% endif %}
+</form>

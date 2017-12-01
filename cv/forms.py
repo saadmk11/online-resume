@@ -1,12 +1,14 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 
 from .models import PersonalInfo, WorkExperience, Education
 
 
 class PersonalInfoForm(forms.ModelForm):
+    birth_day = forms.DateField(widget=SelectDateWidget(years=range(1940, 2010)))
     class Meta:
         model = PersonalInfo
-        fields = [
+        fields = (
             "first_name",
             "last_name",
             "birth_day",
@@ -21,26 +23,28 @@ class PersonalInfoForm(forms.ModelForm):
             "skills",
             "bio",
             "picture",
-            ]
+            )
 
 
 class WorkExperienceForm(forms.ModelForm):
+    joining_year = forms.DateField(widget=SelectDateWidget(years=range(1940, 2018)))
     class Meta:
         model = WorkExperience
-        fields = [
+        fields = (
             "company_name",
             "job_title",
             "joining_year",
             "job_description",
-            ]
+            )
 
 
 class EducationForm(forms.ModelForm):
+    year = forms.DateField(widget=SelectDateWidget(years=range(1940, 2018)))
     class Meta:
         model = Education
-        fields = [
+        fields = (
             "institute_name",
             "subject",
             "year",
             "description",
-            ]
+            )
