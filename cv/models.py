@@ -15,6 +15,7 @@ class PersonalInfo(models.Model):
     user = models.OneToOneField(User)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    tagline = models.CharField(max_length=50, blank=True, null=True, help_text="i.e: Web Developer")
     birth_day = models.DateField()
     gender = models.CharField(max_length=6, choices=GENDER_CHOICE)
     nationality = models.CharField(max_length=25)
@@ -24,15 +25,22 @@ class PersonalInfo(models.Model):
     address = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100)
     language = models.CharField(max_length=200,
-                                       null=True, 
-                                       help_text="Sparate languages by comma"
-                                      )
+                                null=True,
+                                blank=True, 
+                                help_text="Sparate languages by comma"
+                                )
+    
+    interest = models.CharField(max_length=200,
+                                null=True, 
+                                blank=True,
+                                help_text="Sparate interests by comma"
+                               )
 
     skills = models.CharField(max_length=200,
-                                    null=True,
-                                    blank=True, 
-                                    help_text="Sparate Skills by comma"
-                                   )
+                              null=True,
+                              blank=True, 
+                              help_text="Sparate Skills by comma"
+                             )
 
     bio = models.TextField()
     picture = models.ImageField(null=True, blank=True,
@@ -40,8 +48,15 @@ class PersonalInfo(models.Model):
                                 width_field="width_field"
                                )
 
-    height_field = models.IntegerField(default=600)
-    width_field = models.IntegerField(default=600)
+    height_field = models.IntegerField(default=600, 
+                                       null=True, 
+                                       blank=True,
+                                       )
+    
+    width_field = models.IntegerField(default=600,
+                                      null=True,
+                                      blank=True,
+                                      )
 
     def __str__(self):
         return str(self.user.username)

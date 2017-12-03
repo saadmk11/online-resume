@@ -1,57 +1,169 @@
-<h1>CV</h1>
-<h1>personal info</h1>
-{{personal_info.full_name}}
-<br>
-{{personal_info.birth_day}}
-<br>
-{{personal_info.gender}}
-<br>
-{{personal_info.nationality}}
-<br>
-{{personal_info.contact_no}}
-<br>
-{{personal_info.email}}
-<br>
-{{personal_info.website}}
-<br>
-{{personal_info.address}}
-<br>
-{{personal_info.country}}
-<br>
-{{personal_info.language}}
-<br>
-{{personal_info.skills}}
-<br>
-{{personal_info.bio}}
-<br>
-{{personal_info.picture}}
-<br>
-<br>
+{% extends 'cv/base.html' %}
 
-<h1>work experience</h1>
-{% for obj in work_experience %}
+{% block title %} {{personal_info.full_name}}| {{ block.super }}{% endblock title %}
 
-{{obj.company_name}}
-<br>
-{{obj.job_title}}
-<br>
-{{obj.joining_year}}
-<br>
-{{obj.job_description}}
-<br><br>
-{% endfor %}
-<br>
+{% block content %}
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div class="profile-container">
+                {% if personal_info.picture %}
+                <img class="img-circle img-responsive" src="{{personal_info.picture.url}}" alt="" />
+                {% endif %} 
+                <h1 class="name">{{personal_info.full_name}}</h1>
+                {% if personal_info.tagline %}
+                    <h3 class="tagline">{{personal_info.tagline}}</h3>
+                {% endif %}
+            </div><!--//profile-container-->
+            
+            <div class="contact-container container-block">
+                <ul class="list-unstyled contact-list">
+                    <li class="email"><i class="fa fa-envelope"></i><a href="#">{{personal_info.email}}</a></li>
+                    {% if personal_info.contact_no %}
+                        <li class="phone"><i class="fa fa-phone"></i><a href="#">{{personal_info.contact_no}}</a></li>
+                    {% endif %}  
+                    {% if personal_info.website %} 
+                        <li class="email"><i class="fa fa-globe"></i><a href="{{personal_info.website}}">{{personal_info.website|truncatechars:20}}</a></li> 
+                    {% endif %}     
+<!--                     <li class="linkedin"><i class="fa fa-linkedin"></i><a href="#" target="_blank">linkedin.com/in/alandoe</a></li>
+                    <li class="github"><i class="fa fa-github"></i><a href="#" target="_blank">github.com/username</a></li>
+                    <li class="twitter"><i class="fa fa-twitter"></i><a href="https://twitter.com/3rdwave_themes" target="_blank">@twittername</a></li> -->
+                </ul>
+
+            </div><!--//contact-container-->
+
+            {% if personal_info.skills %} 
+            <div class="interests-container container-block">
+                <h2 class="container-block-title">Skills</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>{{personal_info.skills}}</li>
+                </ul>
+            </div><!--//Skills-->
+            {% endif %}
 
 
-<h1>education</h1>
-{% for obj in education %}
+            {% if personal_info.language %}  
+            <div class="languages-container container-block">
+                <h2 class="container-block-title">Languages</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>{{personal_info.language}}</li>
+                </ul>
+            </div>
+            {% endif %}  
+            <!--//interests-->
 
-{{obj.institute_name}}
-<br>
-{{obj.subject}}
-<br>
-{{obj.year}}
-<br>
-{{obj.description}}
-<br><br>
-{% endfor %}
+            {% if personal_info.address %} 
+            <div class="interests-container container-block">
+                <h2 class="container-block-title">Address</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>{{personal_info.address}}</li>
+                    <li>{{personal_info.country}}</li>
+                </ul>
+            </div><!--//Skills-->
+            {% endif %}
+
+            <div class="interests-container container-block">
+                <h2 class="container-block-title">Other Info</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>Date of Birth: {{personal_info.birth_day}}</li>
+                    <li>Gender: {{personal_info.gender}}</li>
+                    <li>Nationality: {{personal_info.nationality}}</li>
+                </ul>
+            </div><!--//Skills-->
+
+            {% if personal_info.interest %} 
+            <div class="interests-container container-block">
+                <h2 class="container-block-title">Interests</h2>
+                <ul class="list-unstyled interests-list">
+                    <li>{{personal_info.interest}}</li>
+                </ul>
+            </div><!--//interests-->
+            {% endif %} 
+
+        </div><!--//sidebar-wrapper-->
+
+        <div class="main-wrapper">
+            
+            <section class="section summary-section">
+                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile 
+                    {% if request.user == personal_info.user %} 
+                    <span style="float: right;">
+                        <a class="btn btn-success btn-sm" href="{{personal_info.get_update_url}}" role="button">Edit</a>
+                    </span>
+                    {% endif %}
+                </h2>
+                
+                <div class="summary">
+                    <p>{{personal_info.bio}}</p>   
+                </div><!--//summary-->
+            </section><!--//section-->
+
+            <section class="section experiences-section">
+                <h2 class="section-title"><i class="fa fa-briefcase"></i>Experiences / Projects
+                {% if request.user == personal_info.user %} 
+                    <span style="float: right;"><a class="btn btn-success btn-sm" href="{% url 'create_work_experience' %}" role="button">Create</a></span>            
+                {% endif %}
+                </h2>
+
+                {% if not work_experience %} 
+                    <br> <br> <br> <br> <br> <br> <br> <br> 
+                {% endif %}
+
+                {% for obj in work_experience %}
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">{{obj.job_title}} &nbsp; &nbsp;
+                                {% if request.user == obj.user %} 
+                                <span><a class="btn btn-success btn-sm" href="{{obj.get_update_url}}" role="button">Edit</a></span>
+                                <span><a class="btn btn-danger btn-sm" href="{{obj.get_delete_url}}" role="button">Delete</a></span>
+                                {% endif %} 
+                            </h3>
+                            <div class="time">{{obj.joining_year}}</div>
+                        </div><!--//upper-row-->
+                        <div class="company">{{obj.company_name}}</div>
+                    </div><!--//meta-->
+                    <div class="details">
+                        <p>{{obj.job_description}}</p>
+                    </div><!--//details-->
+                </div><!--//item-->
+
+                {% endfor %}
+            </section><!--//section-->
+
+            <section class="section experiences-section">
+                <h2 class="section-title"><i class="fa fa-briefcase"></i>Education
+                {% if request.user == personal_info.user %} 
+                    <span style="float: right;"><a class="btn btn-success btn-sm" href="{% url 'create_education' %}" role="button">Create</a></span>            
+                {% endif %}
+                </h2>
+
+                {% if not education %} 
+                    <br> <br> <br> <br> <br> <br> <br> <br> 
+                {% endif %}
+
+                {% for obj in education %}
+                <div class="item">
+                    <div class="meta">
+                        <div class="upper-row">
+                            <h3 class="job-title">{{obj.subject}} &nbsp; &nbsp;
+                            {% if request.user == obj.user %} 
+                                <span><a class="btn btn-success btn-sm" href="{{obj.get_update_url}}" role="button">Edit</a></span>
+                                <span><a class="btn btn-danger btn-sm" href="{{obj.get_delete_url}}" role="button">Delete</a></span>
+                            {% endif %} 
+                            </h3>
+                            <div class="time">{{obj.year}}</div>
+                        </div><!--//upper-row-->
+                        <div class="company">{{obj.institute_name}}</div>
+                    </div><!--//meta-->
+                    <div class="details">
+                        <p>{{obj.description}}</p>
+                    </div><!--//details-->
+                </div><!--//item-->
+
+                {% endfor %}
+            </section><!--//section-->
+        <br> <br> <br> <br> <br> <br> <br> <br> 
+        </div><!--//main-body-->
+    </div>
+ 
+{% endblock content %}
