@@ -3,6 +3,36 @@
 {% block title %} {{personal_info.full_name}}| {{ block.super }}{% endblock title %}
 
 {% block content %}
+<!-- Button trigger modal -->
+<button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Share Resume
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Share Resume</h4>
+        <p>Copy The URL of The Resume & Share it anywhere.</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group input-group-md">
+            <input type="text" class="form-control" value="{{ request.build_absolute_uri }}" id="myInput">
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary" onclick="myFunction()"><i class="fa fa-clipboard" aria-hidden="true"> Copy</i>
+                </button>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div class="wrapper">
         <div class="sidebar-wrapper">
             <div class="profile-container">
@@ -84,7 +114,7 @@
         <div class="main-wrapper">
             
             <section class="section summary-section">
-                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile 
+                <h2 class="section-title"><i class="fa fa-user"></i>Career Profile
                     {% if request.user == personal_info.user %} 
                     <span style="float: right;">
                         <a class="btn btn-success btn-sm" href="{{personal_info.get_update_url}}" role="button">Edit</a>
@@ -131,9 +161,9 @@
             </section><!--//section-->
 
             <section class="section experiences-section">
-                <h2 class="section-title"><i class="fa fa-briefcase"></i>Education
+                <h2 class="section-title"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Education
                 {% if request.user == personal_info.user %} 
-                    <span style="float: right;"><a class="btn btn-success btn-sm" href="{% url 'create_education' %}" role="button">Create</a></span>            
+                    <span style="float: right;"><a class="btn btn-success btn-sm" href="{% url 'create_education' %}" role="button">Create</a></span>
                 {% endif %}
                 </h2>
 
@@ -162,7 +192,7 @@
 
                 {% endfor %}
             </section><!--//section-->
-        <br> <br> <br> <br> <br> <br> <br> <br> 
+        <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> 
         </div><!--//main-body-->
     </div>
  

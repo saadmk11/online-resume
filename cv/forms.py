@@ -11,6 +11,7 @@ class PersonalInfoForm(forms.ModelForm):
         fields = (
             "first_name",
             "last_name",
+            "tagline",
             "birth_day",
             "gender",
             "nationality",
@@ -21,6 +22,7 @@ class PersonalInfoForm(forms.ModelForm):
             "country",
             "language",
             "skills",
+            "interest",
             "bio",
             "picture",
             )

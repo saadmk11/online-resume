@@ -18,11 +18,11 @@ class PersonalInfo(models.Model):
     tagline = models.CharField(max_length=50, blank=True, null=True, help_text="i.e: Web Developer")
     birth_day = models.DateField()
     gender = models.CharField(max_length=6, choices=GENDER_CHOICE)
-    nationality = models.CharField(max_length=25)
+    nationality = models.CharField(max_length=50)
     contact_no = models.CharField(max_length=14, null=True, blank=True)
     email = models.EmailField()
     website = models.URLField(null=True, blank=True)
-    address = models.CharField(max_length=100, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
     country = models.CharField(max_length=100)
     language = models.CharField(max_length=200,
                                 null=True,
@@ -30,13 +30,13 @@ class PersonalInfo(models.Model):
                                 help_text="Sparate languages by comma"
                                 )
     
-    interest = models.CharField(max_length=200,
+    interest = models.CharField(max_length=400,
                                 null=True, 
                                 blank=True,
                                 help_text="Sparate interests by comma"
                                )
 
-    skills = models.CharField(max_length=200,
+    skills = models.CharField(max_length=400,
                               null=True,
                               blank=True, 
                               help_text="Sparate Skills by comma"
@@ -71,8 +71,8 @@ class PersonalInfo(models.Model):
 
 class WorkExperience(models.Model):
     user = models.ForeignKey(User, related_name="works")
-    company_name = models.CharField(max_length=50)
-    job_title = models.CharField(max_length=20)
+    company_name = models.CharField(max_length=100)
+    job_title = models.CharField(max_length=100)
     joining_year = models.DateField()
     job_description = models.TextField()
 
@@ -88,8 +88,8 @@ class WorkExperience(models.Model):
 
 class Education(models.Model):
     user = models.ForeignKey(User, related_name="educations")
-    institute_name = models.CharField(max_length=50)
-    subject = models.CharField(max_length=40)
+    institute_name = models.CharField(max_length=100)
+    subject = models.CharField(max_length=100)
     year = models.DateField()
     description = models.TextField()
 
