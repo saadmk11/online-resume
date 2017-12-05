@@ -15,7 +15,6 @@
       <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">Share Resume</h4>
         <p>Copy The URL of The Resume & Share it anywhere.</p>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="input-group input-group-md">
@@ -144,8 +143,11 @@
                         <div class="upper-row">
                             <h3 class="job-title">{{obj.job_title}} &nbsp; &nbsp;
                                 {% if request.user == obj.user %} 
+
                                 <span><a class="btn btn-success btn-sm" href="{{obj.get_update_url}}" role="button">Edit</a></span>
-                                <span><a class="btn btn-danger btn-sm" href="{{obj.get_delete_url}}" role="button">Delete</a></span>
+                                <span><a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete">Delete</a></span>
+                                {% include "cv/delete_confirm.html" %}
+                                
                                 {% endif %} 
                             </h3>
                             <div class="time">{{obj.joining_year}}</div>
@@ -178,7 +180,8 @@
                             <h3 class="job-title">{{obj.subject}} &nbsp; &nbsp;
                             {% if request.user == obj.user %} 
                                 <span><a class="btn btn-success btn-sm" href="{{obj.get_update_url}}" role="button">Edit</a></span>
-                                <span><a class="btn btn-danger btn-sm" href="{{obj.get_delete_url}}" role="button">Delete</a></span>
+                                <span><a type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete">Delete</a></span>
+                                {% include "cv/delete_confirm.html" %}
                             {% endif %} 
                             </h3>
                             <div class="time">{{obj.year}}</div>
