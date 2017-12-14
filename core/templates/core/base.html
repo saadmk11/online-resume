@@ -27,10 +27,11 @@
     <![endif]-->
 </head> 
 <body>
-    
-{% block content %}
+    {% include 'core/navbar.html' %}
+        
+    {% block content %}
 
-{% endblock content %}
+    {% endblock content %}
 
     <script>
         function myFunction() {

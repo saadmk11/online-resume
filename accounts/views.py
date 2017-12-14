@@ -12,7 +12,7 @@ from .models import User
 # Create your views here.
 def login_view(request): # users will login with their Email & Password
     if request.user.is_authenticated():
-        return redirect("/")
+        return redirect("home")
     else:
         title = "Login"
         form = UserLoginForm(request.POST or None)
@@ -22,7 +22,7 @@ def login_view(request): # users will login with their Email & Password
             # authenticates Email & Password
             user = authenticate(email=email, password=password) 
             login(request, user)
-            return redirect("/")
+            return redirect("home")
         context = {"form":form,
                    "title":title
         }
@@ -32,7 +32,7 @@ def login_view(request): # users will login with their Email & Password
 
 def register_view(request): # Creates a New Account & login New users
     if request.user.is_authenticated():
-        return redirect("/")
+        return redirect("home")
     else:
         title = "Register"
         form = UserRegistrationForm(request.POST or None)
@@ -43,7 +43,7 @@ def register_view(request): # Creates a New Account & login New users
             user.save()
             new_user = authenticate(email=user.email, password=password)
             login(request, new_user)
-            return redirect("/")
+            return redirect("home")
 
         context = {"title":title, "form":form}
 
@@ -55,4 +55,4 @@ def logout_view(request): # logs out the logged in users
         return redirect("login")
     else:
         logout(request)
-        return redirect("/")
+        return redirect("home")
