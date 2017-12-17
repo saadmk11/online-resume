@@ -5,7 +5,10 @@ from .models import PersonalInfo, WorkExperience, Education
 
 
 class PersonalInfoForm(forms.ModelForm):
-    birth_day = forms.DateField(widget=SelectDateWidget(years=range(1940, 2010)))
+    birth_day = forms.DateField(
+        widget=SelectDateWidget(years=range(1940, 2010))
+        )
+
     class Meta:
         model = PersonalInfo
         fields = (
@@ -29,7 +32,10 @@ class PersonalInfoForm(forms.ModelForm):
 
 
 class WorkExperienceForm(forms.ModelForm):
-    joining_year = forms.DateField(widget=SelectDateWidget(years=range(1940, 2018)))
+    joining_year = forms.DateField(
+        widget=SelectDateWidget(years=range(1940, 2018))
+        )
+
     class Meta:
         model = WorkExperience
         fields = (
@@ -42,6 +48,7 @@ class WorkExperienceForm(forms.ModelForm):
 
 class EducationForm(forms.ModelForm):
     year = forms.DateField(widget=SelectDateWidget(years=range(1940, 2018)))
+
     class Meta:
         model = Education
         fields = (

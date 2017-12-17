@@ -14,8 +14,8 @@ def cv_detail_view(request, username):
     except PersonalInfo.DoesNotExist:
 
         if user == request.user:
-            return redirect("create_personal_info") 
-        else:    
+            return redirect("create_personal_info")
+        else:
             raise Http404("CV Does Not Exist.")
 
     work_experience = WorkExperience.objects.filter(user=user)
@@ -43,7 +43,7 @@ def create_personal_info(request):
             personal_info = form.save(commit=False)
             personal_info.user = request.user
             personal_info.save()
-            return redirect("cv_detail", username=request.user.username) 
+            return redirect("cv_detail", username=request.user.username)
 
         context = {
             "form": form,
@@ -59,8 +59,12 @@ def update_personal_info(request, pk):
 
     if not request.user == instance.user:
         raise Http404
-    else:    
-        form = PersonalInfoForm(request.POST or None, request.FILES or None, instance=instance)
+    else:
+        form = PersonalInfoForm(
+            request.POST or None,
+            request.FILES or None,
+            instance=instance
+        )
 
         if form.is_valid():
             personal_info = form.save(commit=False)
@@ -83,7 +87,7 @@ def create_work_experience(request):
         work_experience = form.save(commit=False)
         work_experience.user = request.user
         work_experience.save()
-        return redirect("cv_detail", username=request.user.username) 
+        return redirect("cv_detail", username=request.user.username)
 
     context = {
         "form": form,
@@ -99,14 +103,14 @@ def update_work_experience(request, pk):
 
     if not request.user == instance.user:
         raise Http404
-    else:    
+    else:
         form = WorkExperienceForm(request.POST or None, instance=instance)
 
         if form.is_valid():
             work_experience = form.save(commit=False)
             work_experience.user = request.user
             work_experience.save()
-            return redirect("cv_detail", username=request.user.username) 
+            return redirect("cv_detail", username=request.user.username)
 
         context = {
             "form": form,
@@ -122,10 +126,10 @@ def delete_work_experience(request, pk):
 
     if not request.user == work_experience.user:
         raise Http404
-    else:    
+    else:
         work_experience.delete()
 
-        return redirect("cv_detail", username=request.user.username) 
+        return redirect("cv_detail", username=request.user.username)
 
 
 @login_required
@@ -136,7 +140,7 @@ def create_education(request):
         education = form.save(commit=False)
         education.user = request.user
         education.save()
-        return redirect("cv_detail", username=request.user.username) 
+        return redirect("cv_detail", username=request.user.username)
 
     context = {
         "form": form,
@@ -152,14 +156,14 @@ def update_education(request, pk):
 
     if not request.user == instance.user:
         raise Http404
-    else:    
+    else:
         form = EducationForm(request.POST or None, instance=instance)
 
         if form.is_valid():
             education = form.save(commit=False)
             education.user = request.user
             education.save()
-            return redirect("cv_detail", username=request.user.username) 
+            return redirect("cv_detail", username=request.user.username)
 
         context = {
             "form": form,
@@ -175,7 +179,7 @@ def delete_education(request, pk):
 
     if not request.user == education.user:
         raise Http404
-    else:    
+    else:
         education.delete()
 
-        return redirect("cv_detail", username=request.user.username) 
+        return redirect("cv_detail", username=request.user.username)

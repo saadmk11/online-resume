@@ -6,6 +6,7 @@ from django.urls import reverse
 
 User = settings.AUTH_USER_MODEL
 
+
 class PersonalInfo(models.Model):
     GENDER_CHOICE = (
         ("Male", "Male"),
@@ -15,7 +16,11 @@ class PersonalInfo(models.Model):
     user = models.OneToOneField(User)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    tagline = models.CharField(max_length=50, blank=True, null=True, help_text="i.e: Web Developer")
+    tagline = models.CharField(max_length=50,
+                               blank=True,
+                               null=True,
+                               help_text="i.e: Web Developer")
+
     birth_day = models.DateField()
     gender = models.CharField(max_length=6, choices=GENDER_CHOICE)
     nationality = models.CharField(max_length=50)
@@ -26,33 +31,33 @@ class PersonalInfo(models.Model):
     country = models.CharField(max_length=100)
     language = models.CharField(max_length=200,
                                 null=True,
-                                blank=True, 
+                                blank=True,
                                 help_text="Sparate languages by comma"
                                 )
-    
+
     interest = models.CharField(max_length=400,
-                                null=True, 
+                                null=True,
                                 blank=True,
                                 help_text="Sparate interests by comma"
-                               )
+                                )
 
     skills = models.CharField(max_length=400,
                               null=True,
-                              blank=True, 
+                              blank=True,
                               help_text="Sparate Skills by comma"
-                             )
+                              )
 
     bio = models.TextField()
     picture = models.ImageField(null=True, blank=True,
                                 height_field="height_field",
                                 width_field="width_field"
-                               )
+                                )
 
-    height_field = models.IntegerField(default=600, 
-                                       null=True, 
+    height_field = models.IntegerField(default=600,
+                                       null=True,
                                        blank=True,
                                        )
-    
+
     width_field = models.IntegerField(default=600,
                                       null=True,
                                       blank=True,
@@ -101,4 +106,3 @@ class Education(models.Model):
 
     def __str__(self):
         return str(self.user.username)
- 
