@@ -47,6 +47,7 @@ def create_personal_info(request):
 
         context = {
             "form": form,
+            "title": "Create Personal Information",
         }
 
         return render(request, "cv/create.html", context)
@@ -68,6 +69,7 @@ def update_personal_info(request, pk):
 
         context = {
             "form": form,
+            "title": "Update Personal Information",
         }
 
         return render(request, "cv/create.html", context)
@@ -85,6 +87,7 @@ def create_work_experience(request):
 
     context = {
         "form": form,
+        "title": "Create Work Experiance",
     }
 
     return render(request, "cv/create.html", context)
@@ -107,6 +110,7 @@ def update_work_experience(request, pk):
 
         context = {
             "form": form,
+            "title": "Update Work Experience",
         }
 
         return render(request, "cv/create.html", context)
@@ -136,6 +140,7 @@ def create_education(request):
 
     context = {
         "form": form,
+        "title": "Create Educational Information",
     }
 
     return render(request, "cv/create.html", context)
@@ -158,6 +163,7 @@ def update_education(request, pk):
 
         context = {
             "form": form,
+            "title": "Update Educational Information",
         }
 
         return render(request, "cv/create.html", context)
