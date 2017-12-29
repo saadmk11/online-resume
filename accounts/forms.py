@@ -28,9 +28,9 @@ class UserLoginForm(forms.Form):
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = (
+        fields = [
                   "username",
                   "email",
                   "password1",
-                  "password2",
-                  )
+                  "password2"
+                  ]

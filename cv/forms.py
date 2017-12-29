@@ -11,7 +11,7 @@ class PersonalInfoForm(forms.ModelForm):
 
     class Meta:
         model = PersonalInfo
-        fields = (
+        fields = [
             "first_name",
             "last_name",
             "tagline",
@@ -27,8 +27,8 @@ class PersonalInfoForm(forms.ModelForm):
             "skills",
             "interest",
             "bio",
-            "picture",
-            )
+            "picture"
+            ]
 
 
 class WorkExperienceForm(forms.ModelForm):
@@ -38,12 +38,12 @@ class WorkExperienceForm(forms.ModelForm):
 
     class Meta:
         model = WorkExperience
-        fields = (
+        fields = [
             "company_name",
             "job_title",
             "joining_year",
-            "job_description",
-            )
+            "job_description"
+            ]
 
 
 class EducationForm(forms.ModelForm):
@@ -51,9 +51,9 @@ class EducationForm(forms.ModelForm):
 
     class Meta:
         model = Education
-        fields = (
+        fields = [
             "institute_name",
             "subject",
             "year",
-            "description",
-            )
+            "description"
+            ]

@@ -25,11 +25,15 @@ from accounts.views import (login_view,
 from core.views import home
 
 urlpatterns = [
+    # core
     url(r'^$', home, name='home'),
+    # admin
     url(r'^admin/', admin.site.urls),
+    # accounts
     url(r'^login/$', login_view, name='login'),
     url(r'^register/$', register_view, name='register'),
     url(r'^logout/$', logout_view, name='logout'),
+    # cv
     url(r'^cv/', include('cv.urls')),
 ]
 

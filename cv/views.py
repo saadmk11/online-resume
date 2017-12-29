@@ -12,7 +12,7 @@ def cv_detail_view(request, username):
     try:
         personal_info = PersonalInfo.objects.get(user=user)
     except PersonalInfo.DoesNotExist:
-
+        # if personal info doesn't exist redirect to create or 404 page.
         if user == request.user:
             return redirect("create_personal_info")
         else:
