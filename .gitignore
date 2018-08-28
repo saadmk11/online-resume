@@ -5,6 +5,8 @@ include/
 pip-selfcheck.json
 
 db.sqlite3
+static-root/
+media-root/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

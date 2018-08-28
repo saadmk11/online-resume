@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:9.6.10
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:1.15.2
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/usr/share/nginx/resume/static
+      - ./media:/usr/share/nginx/resume/media
+    ports:
+      - "80:80"
+    links:
+      - web
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
